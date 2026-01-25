@@ -1,0 +1,157 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+.reward-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $background-gradient;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.studio-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #8b00ff,
+    #ff0000
+  );
+  background-size: 200% 100%;
+  animation: rainbow-slide 3s linear infinite;
+}
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  left: var(--x);
+  width: 10px;
+  height: 10px;
+  background: hsl(calc(var(--delay, 0s) * 360), 80%, 60%);
+  animation: confetti 3s ease-out var(--delay) forwards;
+
+  &:nth-child(odd) {
+    background: $primary-color;
+  }
+
+  &:nth-child(even) {
+    background: $secondary-color;
+  }
+
+  &:nth-child(3n) {
+    background: #ff6b6b;
+    width: 8px;
+    height: 8px;
+  }
+
+  &:nth-child(4n) {
+    background: #4ecdc4;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.content {
+  max-width: $max-content-width;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  z-index: 1;
+}
+
+.title {
+  font-size: 2rem;
+  color: $primary-color;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.revealed {
+    animation: bounce-in 0.6s ease-out;
+  }
+}
+
+.message {
+  font-size: 1.2rem;
+  color: $text-color;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.scratch-card-wrapper {
+  margin-bottom: 30px;
+}
+
+.celebration-message {
+  background: linear-gradient(145deg, #fff9e6, #fff3cd);
+  border: 3px solid $primary-color;
+  border-radius: 20px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  animation: bounce-in 0.5s ease-out;
+
+  p {
+    font-size: 1.1rem;
+    color: $text-color;
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.play-again-button {
+  padding: 16px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(145deg, $secondary-color, color.adjust($secondary-color, $lightness: -15%));
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse-glow 2s ease-in-out infinite;
+  box-shadow: 0 6px 20px rgba($secondary-color, 0.4);
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes rainbow-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}

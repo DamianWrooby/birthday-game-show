@@ -1,0 +1,17 @@
+<div class="welcome-screen">
+  <div class="studio-lights"></div>
+
+  <div class="content">
+    <h1 class="title">{{ title }}</h1>
+
+    <div class="host-container">
+      <img [src]="hostImage" alt="Prowadzący teleturniej" class="host-image" />
+    </div>
+
+    <p class="message">{{ message }}</p>
+
+    <button class="play-button" (click)="startGame()">
+      {{ playButtonText }}
+    </button>
+  </div>
+</div>

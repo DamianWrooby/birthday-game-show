@@ -1,0 +1,133 @@
+@use '../../../styles/variables' as *;
+
+.question-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $background-gradient;
+  padding: 20px;
+  position: relative;
+}
+
+.studio-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #8b00ff,
+    #ff0000
+  );
+  background-size: 200% 100%;
+  animation: rainbow-slide 3s linear infinite;
+}
+
+.content {
+  max-width: $max-content-width;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.progress-bar {
+  margin-bottom: 30px;
+}
+
+.progress-text {
+  display: block;
+  text-align: center;
+  font-size: 0.9rem;
+  color: $text-light;
+  margin-bottom: 8px;
+}
+
+.progress-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, $primary-color, $secondary-color);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.question-container {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: slide-down 0.4s ease-out;
+}
+
+.question-text {
+  font-size: 1.4rem;
+  color: $text-color;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hint-container {
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hint-bubble {
+  background: linear-gradient(145deg, #fff9e6, #fff3cd);
+  border: 2px solid #ffc107;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hint-icon {
+  font-size: 1.5rem;
+}
+
+.hint-text {
+  font-size: 1rem;
+  color: #856404;
+  line-height: 1.4;
+}
+
+@keyframes rainbow-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

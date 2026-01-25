@@ -1,0 +1,37 @@
+<div class="reward-screen">
+  <div class="studio-lights"></div>
+
+  <!-- Confetti -->
+  <div class="confetti-container" *ngIf="showConfetti">
+    <div *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+         class="confetti-piece"
+         [style.--delay]="i * 0.1 + 's'"
+         [style.--x]="(i * 17 % 100) + '%'">
+    </div>
+  </div>
+
+  <div class="content">
+    <h1 class="title" [class.revealed]="isRevealed">{{ rewardTitle }}</h1>
+
+    <p class="message">{{ rewardMessage }}</p>
+
+    <div class="scratch-card-wrapper">
+      <app-scratch-card
+        [revealImage]="ticketImage"
+        (fullyRevealed)="onFullyRevealed()"
+      ></app-scratch-card>
+    </div>
+
+    <div class="celebration-message" *ngIf="isRevealed">
+      <p>Udało się! Oto Twoja wyjątkowa niespodzianka!</p>
+    </div>
+
+    <button
+      class="play-again-button"
+      *ngIf="isRevealed"
+      (click)="playAgain()"
+    >
+      {{ playAgainText }}
+    </button>
+  </div>
+</div>

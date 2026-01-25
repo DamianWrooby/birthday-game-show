@@ -15,6 +15,7 @@ export class AnswerButtonComponent {
   @Input() state: ButtonState = 'default';
   @Input() disabled = false;
   @Input() animationDelay = 0;
+  @Input() letter = '';
 
   @Output() selected = new EventEmitter<void>();
 

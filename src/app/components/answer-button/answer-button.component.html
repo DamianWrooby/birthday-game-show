@@ -8,5 +8,6 @@
   [style.animation-delay.ms]="animationDelay"
   (click)="onClick()"
 >
-  {{ text }}
+  <span class="letter-badge" *ngIf="letter">{{ letter }}</span>
+  <span class="answer-text">{{ text }}</span>
 </button>

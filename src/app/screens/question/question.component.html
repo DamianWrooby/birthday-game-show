@@ -1,22 +1,35 @@
 <div class="question-screen">
   <div class="studio-lights"></div>
+  <div class="spotlight spotlight-left"></div>
+  <div class="spotlight spotlight-right"></div>
 
   <div class="content" *ngIf="question">
-    <div class="progress-bar">
-      <span class="progress-text">Pytanie {{ questionNumber }} z {{ totalQuestions }}</span>
-      <div class="progress-track">
-        <div class="progress-fill" [style.width.%]="(questionNumber / totalQuestions) * 100"></div>
+    <div class="progress-section">
+      <div class="question-badge">
+        <span class="badge-number">{{ questionNumber }}</span>
+        <span class="badge-divider">/</span>
+        <span class="badge-total">{{ totalQuestions }}</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="(questionNumber / totalQuestions) * 100">
+            <div class="progress-glow"></div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="question-container">
+      <div class="question-icon">?</div>
       <h2 class="question-text">{{ question.text }}</h2>
+      <div class="question-decoration"></div>
     </div>
 
     <div class="answers-container">
       <app-answer-button
         *ngFor="let answer of answerStates; let i = index"
         [text]="answer.text"
+        [letter]="['A', 'B', 'C', 'D'][i]"
         [state]="answer.state"
         [disabled]="isAnswered"
         [animationDelay]="i * 100"

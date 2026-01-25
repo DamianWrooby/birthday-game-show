@@ -1,0 +1,42 @@
+@use '../../../styles/variables' as *;
+
+.scratch-card-container {
+  position: relative;
+  width: 320px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: wiggle 0.5s ease-in-out;
+}
+
+.reveal-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.reveal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}

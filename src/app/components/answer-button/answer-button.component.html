@@ -1,0 +1,12 @@
+<button
+  class="answer-button"
+  [class.selected]="state === 'selected'"
+  [class.correct]="state === 'correct'"
+  [class.incorrect]="state === 'incorrect'"
+  [class.disabled]="disabled"
+  [disabled]="disabled"
+  [style.animation-delay.ms]="animationDelay"
+  (click)="onClick()"
+>
+  {{ text }}
+</button>

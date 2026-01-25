@@ -1,0 +1,83 @@
+@use 'styles/variables' as *;
+@use 'styles/animations';
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $text-color;
+  background: $background-gradient;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations for people who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile-first container */
+.container {
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+/* Prevent horizontal scrolling */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Touch-friendly tap targets */
+button, a {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 3px solid $primary-color;
+  outline-offset: 2px;
+}

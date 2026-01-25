@@ -1,0 +1,37 @@
+// Colors
+$primary-color: #ff6b35;
+$secondary-color: #4ecdc4;
+$success-color: #2ecc71;
+$error-color: #e74c3c;
+$warning-color: #f39c12;
+
+// Text
+$text-color: #2c3e50;
+$text-light: #7f8c8d;
+
+// Backgrounds
+$background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$card-background: #ffffff;
+
+// Layout
+$max-content-width: 480px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Border radius
+$border-radius-sm: 8px;
+$border-radius-md: 16px;
+$border-radius-lg: 24px;
+$border-radius-full: 50px;
+
+// Shadows
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+// Animation durations
+$transition-fast: 0.2s;
+$transition-normal: 0.3s;
+$transition-slow: 0.5s;

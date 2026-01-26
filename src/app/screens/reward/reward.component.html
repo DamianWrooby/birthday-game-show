@@ -11,7 +11,11 @@
   </div>
 
   <div class="content">
-    <h1 class="title" [class.revealed]="isRevealed">{{ rewardTitle }}</h1>
+    <h1 class="title" [class.revealed]="isRevealed">
+      <span class="title-star star-left"></span>
+      <span class="title-text">{{ rewardTitle }}</span>
+      <span class="title-star star-right"></span>
+    </h1>
 
     <p class="message">{{ rewardMessage }}</p>
 

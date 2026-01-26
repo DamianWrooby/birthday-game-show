@@ -2,7 +2,11 @@
   <div class="studio-lights"></div>
 
   <div class="content">
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="title">
+      <span class="title-star star-left"></span>
+      <span class="title-text">{{ title }}</span>
+      <span class="title-star star-right"></span>
+    </h1>
 
     <div class="host-container">
       <img [src]="hostImage" alt="Prowadzący teleturniej" class="host-image" />
@@ -11,6 +15,7 @@
     <p class="message">{{ message }}</p>
 
     <button class="play-button" (click)="startGame()">
+      <span class="button-shine"></span>
       {{ playButtonText }}
     </button>
   </div>

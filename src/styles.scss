@@ -22,7 +22,7 @@ html {
 /* Set core body defaults */
 body {
   min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-body;
   font-size: 16px;
   line-height: 1.5;
   color: $text-color;
@@ -80,4 +80,85 @@ button, a {
 :focus-visible {
   outline: 3px solid $primary-color;
   outline-offset: 2px;
+}
+
+/* Typography Utility Classes */
+.text-gold-metallic {
+  background: linear-gradient(180deg, $gold-light 0%, $gold-medium 50%, $gold-dark 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Star Decoration */
+.star-decoration {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0 8px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $gold-light, $gold-medium);
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+    animation: star-twinkle 1.5s ease-in-out infinite;
+  }
+}
+
+/* Star Animations */
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.9) rotate(10deg);
+  }
+}
+
+@keyframes star-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  }
+}
+
+@keyframes button-shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
 }

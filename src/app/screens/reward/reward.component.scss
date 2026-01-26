@@ -83,19 +83,94 @@
 }
 
 .title {
-  font-size: 2rem;
-  color: $primary-color;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 
   &.revealed {
     animation: bounce-in 0.6s ease-out;
   }
 }
 
+.title-text {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2rem;
+  background: linear-gradient(180deg, #ffd700 0%, #daa520 50%, #b8860b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  text-align: center;
+  letter-spacing: 0.025em;
+  animation: text-glow-pulse 3s ease-in-out infinite;
+}
+
+.title-star {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  position: relative;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd700, #daa520);
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+    animation: star-bounce 1s ease-in-out infinite;
+  }
+
+  &.star-left::before {
+    animation-delay: 0s;
+  }
+
+  &.star-right::before {
+    animation-delay: 0.5s;
+  }
+}
+
+@keyframes star-bounce {
+  0%, 100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.15) rotate(-10deg);
+  }
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+  }
+}
+
 .message {
+  font-family: 'Nunito', sans-serif;
   font-size: 1.2rem;
+  font-weight: 600;
   color: white;
   text-align: center;
   margin-bottom: 30px;
@@ -115,18 +190,21 @@
   animation: bounce-in 0.5s ease-out;
 
   p {
+    font-family: 'Nunito', sans-serif;
     font-size: 1.1rem;
     color: $text-color;
     text-align: center;
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
   }
 }
 
 .play-again-button {
   padding: 16px 40px;
+  font-family: 'Russo One', sans-serif;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   color: white;
   background: linear-gradient(145deg, $secondary-color, color.adjust($secondary-color, $lightness: -15%));
   border: none;

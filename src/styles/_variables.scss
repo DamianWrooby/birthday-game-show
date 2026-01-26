@@ -35,3 +35,55 @@ $shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
 $transition-fast: 0.2s;
 $transition-normal: 0.3s;
 $transition-slow: 0.5s;
+
+// Typography - Font Families
+$font-display: 'Russo One', sans-serif;
+$font-body: 'Nunito', sans-serif;
+$font-accent: 'Orbitron', sans-serif;
+
+// Typography - Font Sizes
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+
+// Typography - Font Weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+// Typography - Letter Spacing
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+$letter-spacing-widest: 0.1em;
+
+// Gold Metallic Colors
+$gold-light: #ffd700;
+$gold-medium: #daa520;
+$gold-dark: #b8860b;
+
+// Text Shadow Presets
+$text-shadow-3d:
+  0 1px 0 #c9b97a,
+  0 2px 0 #b8a569,
+  0 3px 0 #a79158,
+  0 4px 0 #967d47,
+  0 5px 10px rgba(0, 0, 0, 0.4);
+
+$text-shadow-glow-gold:
+  0 0 10px rgba(255, 215, 0, 0.5),
+  0 0 20px rgba(255, 215, 0, 0.3),
+  0 0 30px rgba(255, 215, 0, 0.2);
+
+$text-shadow-glow-white:
+  0 0 10px rgba(255, 255, 255, 0.8),
+  0 0 20px rgba(255, 255, 255, 0.5);

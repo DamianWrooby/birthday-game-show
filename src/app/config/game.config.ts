@@ -37,10 +37,10 @@ export const GAME_CONFIG: GameConfig = {
     scratchOverlay: 'assets/images/scratch-overlay.png'
   },
   ui: {
-    welcomeTitle: '🎉 Urodzinowy Teleturniej! 🎉',
+    welcomeTitle: 'Urodzinowy Teleturniej!',
     welcomeMessage: 'Odpowiedz na 3 pytania, aby odkryć swoją wyjątkową niespodziankę!',
     playButtonText: 'GRAJ',
-    rewardTitle: '🎊 Gratulacje! 🎊',
+    rewardTitle: 'Gratulacje!',
     rewardMessage: 'Zdrap, aby odkryć niespodziankę!',
     playAgainText: 'Zagraj ponownie'
   }

@@ -42,12 +42,86 @@
 }
 
 .title {
-  font-size: 2rem;
-  color: $primary-color;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-bottom: 30px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   animation: bounce-in 0.6s ease-out;
+}
+
+.title-text {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2rem;
+  background: linear-gradient(180deg, #ffd700 0%, #daa520 50%, #b8860b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  text-align: center;
+  letter-spacing: 0.025em;
+  animation: text-glow-pulse 3s ease-in-out infinite;
+}
+
+.title-star {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  position: relative;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd700, #daa520);
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+    animation: star-twinkle 1.5s ease-in-out infinite;
+  }
+
+  &.star-left::before {
+    animation-delay: 0s;
+  }
+
+  &.star-right::before {
+    animation-delay: 0.75s;
+  }
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.85) rotate(15deg);
+  }
+}
+
+@keyframes text-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+  }
 }
 
 .host-container {
@@ -65,7 +139,9 @@
 }
 
 .message {
+  font-family: 'Nunito', sans-serif;
   font-size: 1.2rem;
+  font-weight: 600;
   color: white;
   text-align: center;
   margin-bottom: 40px;
@@ -77,8 +153,10 @@
 .play-button {
   min-width: 200px;
   padding: 20px 60px;
+  font-family: 'Russo One', sans-serif;
   font-size: 1.5rem;
   font-weight: bold;
+  letter-spacing: 0.1em;
   color: white;
   background: linear-gradient(145deg, $primary-color, color.adjust($primary-color, $lightness: -15%));
   border: none;
@@ -87,9 +165,36 @@
   transition: all 0.3s ease;
   animation: pulse-glow 2s ease-in-out infinite;
   box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+  position: relative;
+  overflow: hidden;
 
   &:active {
     transform: scale(0.95);
+  }
+
+  .button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: button-shine-sweep 3s ease-in-out infinite;
+  }
+}
+
+@keyframes button-shine-sweep {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 200%;
   }
 }
 

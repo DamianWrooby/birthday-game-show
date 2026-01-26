@@ -32,7 +32,7 @@ export const GAME_CONFIG: GameConfig = {
     incorrect: 'assets/audio/incorrect.mp3'
   },
   images: {
-    host: 'assets/images/host.svg',
+    host: 'assets/images/host.png',
     ticket: 'assets/images/ticket.svg',
     scratchOverlay: 'assets/images/scratch-overlay.png'
   },

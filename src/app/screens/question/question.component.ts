@@ -60,7 +60,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }));
       this.showHint = false;
       this.isAnswered = false;
-      this.audioService.playQuestion();
+      this.audioService.playQuestion(this.question.audio);
     }
   }
 
@@ -74,13 +74,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
     if (isCorrect) {
       this.isAnswered = true;
-      this.audioService.playCorrect();
 
-      // Navigate to next after delay
-      this.ngZone.run(() => {
-        setTimeout(() => {
+      // Navigate to next after audio ends
+      this.audioService.playCorrectAndWait().then(() => {
+        this.ngZone.run(() => {
           this.gameStateService.navigateToNextQuestion(this.question!.id);
-        }, 1500);
+        });
       });
     } else {
       this.audioService.playIncorrect();

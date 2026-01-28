@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { GAME_CONFIG } from '../../config/game.config';
@@ -19,6 +19,8 @@ export class WelcomeComponent implements OnInit {
   readonly message = GAME_CONFIG.ui.welcomeMessage;
   readonly playButtonText = GAME_CONFIG.ui.playButtonText;
 
+  isStarting = signal(false);
+
   constructor(
     private router: Router,
     private audioService: AudioService,
@@ -27,10 +29,14 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameStateService.resetGame();
-    this.audioService.playWelcome();
   }
 
-  startGame(): void {
+  async startGame(): Promise<void> {
+    if (this.isStarting()) return;
+
+    this.isStarting.set(true);
+    await this.audioService.playWelcomeAndWait();
+
     const firstQuestion = GAME_CONFIG.questions[0];
     if (firstQuestion) {
       this.router.navigate(['/question', firstQuestion.id]);

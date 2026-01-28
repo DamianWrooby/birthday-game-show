@@ -48,8 +48,27 @@ export class AudioService {
     this.playAudio(GAME_CONFIG.audio.welcome);
   }
 
-  playQuestion(): void {
-    this.playAudio(GAME_CONFIG.audio.question);
+  playWelcomeAndWait(): Promise<void> {
+    return new Promise((resolve) => {
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+      }
+
+      this.audio = new Audio(GAME_CONFIG.audio.welcome);
+
+      this.audio.addEventListener('ended', () => resolve(), { once: true });
+      this.audio.addEventListener('error', () => resolve(), { once: true });
+
+      this.audio.play().catch(() => {
+        // If playback blocked, resolve immediately to allow navigation
+        resolve();
+      });
+    });
+  }
+
+  playQuestion(audioPath?: string): void {
+    this.playAudio(audioPath ?? GAME_CONFIG.audio.question);
   }
 
   playReward(): void {
@@ -58,6 +77,24 @@ export class AudioService {
 
   playCorrect(): void {
     this.playAudio(GAME_CONFIG.audio.correct);
+  }
+
+  playCorrectAndWait(): Promise<void> {
+    return new Promise((resolve) => {
+      if (this.audio) {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+      }
+
+      this.audio = new Audio(GAME_CONFIG.audio.correct);
+
+      this.audio.addEventListener('ended', () => resolve(), { once: true });
+      this.audio.addEventListener('error', () => resolve(), { once: true });
+
+      this.audio.play().catch(() => {
+        resolve();
+      });
+    });
   }
 
   playIncorrect(): void {

@@ -14,9 +14,11 @@
 
     <p class="message">{{ message }}</p>
 
-    <button class="play-button" (click)="startGame()">
-      <span class="button-shine"></span>
-      {{ playButtonText }}
-    </button>
+    @if (!isStarting()) {
+      <button class="play-button" (click)="startGame()">
+        <span class="button-shine"></span>
+        {{ playButtonText }}
+      </button>
+    }
   </div>
 </div>

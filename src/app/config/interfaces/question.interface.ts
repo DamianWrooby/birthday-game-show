@@ -4,4 +4,5 @@ export interface Question {
   answers: string[];
   correctAnswerIndex: number;
   hint: string;
+  audio?: string;
 }

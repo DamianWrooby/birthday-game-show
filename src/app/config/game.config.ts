@@ -4,24 +4,27 @@ export const GAME_CONFIG: GameConfig = {
   questions: [
     {
       id: 1,
-      text: 'Jaka jest stolica Francji?',
-      answers: ['Londyn', 'Berlin', 'Paryż', 'Madryt'],
+      text: 'Jeśli, pytając czysto teoretycznie, zdecydowałabyś się na kolejnego psa, jaka rasa byłaby najlepszym wyborem?',
+      answers: ['Pudel', 'Chihuahua', 'Corgi', 'Papillon'],
       correctAnswerIndex: 2,
-      hint: 'Pomyśl o Wieży Eiffla!'
+      hint: 'Puszysty na krótkich łapach',
+      audio: 'assets/audio/question_1.mp3'
     },
     {
       id: 2,
-      text: 'Ile planet jest w naszym Układzie Słonecznym?',
-      answers: ['7', '8', '9', '10'],
-      correctAnswerIndex: 1,
-      hint: 'Pluton został przeklasyfikowany w 2006 roku!'
+      text: 'Jaka jest pierwsza oznaka starzenia się?',
+      answers: ['Ból pleców', 'Rezygnowanie z wyjść ze znajomymi', 'Mówienie na głos oczywistych rzeczy', 'Zainteresowanie ogrodnictwem'],
+      correctAnswerIndex: 2,
+      hint: '"Ale jak śnieg spadnie to powietrze od razu inne"',
+      audio: 'assets/audio/question_2.mp3'
     },
     {
       id: 3,
-      text: 'Jaki kolor powstaje po zmieszaniu czerwonego i żółtego?',
-      answers: ['Zielony', 'Fioletowy', 'Pomarańczowy', 'Różowy'],
-      correctAnswerIndex: 2,
-      hint: 'Pomyśl o owocu cytrusowym!'
+      text: 'Wanna to urządzenie służące do...',
+      answers: ['Siedzenia', 'Kąpieli', 'Makijażu', 'Depilacji'],
+      correctAnswerIndex: 1,
+      hint: 'Gdzieś w głębi duszy znasz prawidłową odpowiedź',
+      audio: 'assets/audio/question_3.mp3'
     }
   ],
   audio: {

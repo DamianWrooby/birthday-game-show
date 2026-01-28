@@ -5,21 +5,34 @@ import { GAME_CONFIG } from '../config/game.config';
   providedIn: 'root'
 })
 export class AudioService {
-  private audio: HTMLAudioElement | null = null;
+  private audioContext: AudioContext | null = null;
+  private audioBuffers: Map<string, AudioBuffer> = new Map();
+  private currentSource: AudioBufferSourceNode | null = null;
   private pendingAudio: string | null = null;
   private isUnlocked = signal(false);
 
+  // Fallback for browsers without Web Audio API
+  private fallbackAudio: HTMLAudioElement | null = null;
+
   constructor() {
     this.setupUnlockListeners();
+    this.preloadAllAudio();
   }
 
   private setupUnlockListeners(): void {
-    const unlock = () => {
+    const unlock = async () => {
+      // Resume AudioContext on user gesture (required for iOS)
+      if (this.audioContext && this.audioContext.state === 'suspended') {
+        await this.audioContext.resume();
+      }
+
       this.isUnlocked.set(true);
+
       if (this.pendingAudio) {
         this.playAudio(this.pendingAudio);
         this.pendingAudio = null;
       }
+
       document.removeEventListener('click', unlock);
       document.removeEventListener('touchstart', unlock);
     };
@@ -28,14 +41,77 @@ export class AudioService {
     document.addEventListener('touchstart', unlock, { once: true });
   }
 
-  private playAudio(src: string): void {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
+  private async preloadAllAudio(): Promise<void> {
+    // Initialize AudioContext
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (AudioContextClass) {
+      this.audioContext = new AudioContextClass();
     }
 
-    this.audio = new Audio(src);
-    this.audio.play().catch((error) => {
+    // Preload all audio files
+    const audioFiles = [
+      GAME_CONFIG.audio.welcome,
+      GAME_CONFIG.audio.question,
+      GAME_CONFIG.audio.reward,
+      GAME_CONFIG.audio.correct,
+      GAME_CONFIG.audio.incorrect,
+      GAME_CONFIG.audio.scratchComplete,
+      ...GAME_CONFIG.questions.map(q => q.audio).filter((a): a is string => !!a)
+    ];
+
+    for (const src of audioFiles) {
+      this.loadAudioBuffer(src);
+    }
+  }
+
+  private async loadAudioBuffer(src: string): Promise<void> {
+    if (!this.audioContext || this.audioBuffers.has(src)) return;
+
+    try {
+      const response = await fetch(src);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+      this.audioBuffers.set(src, audioBuffer);
+    } catch (error) {
+      console.warn('Failed to preload audio:', src, error);
+    }
+  }
+
+  private playAudio(src: string): void {
+    // Stop any currently playing audio
+    if (this.currentSource) {
+      try {
+        this.currentSource.stop();
+      } catch {
+        // Ignore if already stopped
+      }
+      this.currentSource = null;
+    }
+
+    // Try Web Audio API first (works reliably on iOS after unlock)
+    if (this.audioContext && this.audioBuffers.has(src)) {
+      // Ensure context is running
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume();
+      }
+
+      const buffer = this.audioBuffers.get(src)!;
+      const source = this.audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(this.audioContext.destination);
+      source.start(0);
+      this.currentSource = source;
+      return;
+    }
+
+    // Fallback to HTMLAudioElement
+    if (this.fallbackAudio) {
+      this.fallbackAudio.pause();
+      this.fallbackAudio.currentTime = 0;
+    }
+
+    this.fallbackAudio = new Audio(src);
+    this.fallbackAudio.play().catch((error) => {
       if (error.name === 'NotAllowedError') {
         this.pendingAudio = src;
       } else {
@@ -49,19 +125,48 @@ export class AudioService {
   }
 
   playWelcomeAndWait(): Promise<void> {
+    return this.playAudioAndWait(GAME_CONFIG.audio.welcome);
+  }
+
+  private playAudioAndWait(src: string): Promise<void> {
     return new Promise((resolve) => {
-      if (this.audio) {
-        this.audio.pause();
-        this.audio.currentTime = 0;
+      // Stop any currently playing audio
+      if (this.currentSource) {
+        try {
+          this.currentSource.stop();
+        } catch {
+          // Ignore if already stopped
+        }
+        this.currentSource = null;
       }
 
-      this.audio = new Audio(GAME_CONFIG.audio.welcome);
+      // Try Web Audio API first
+      if (this.audioContext && this.audioBuffers.has(src)) {
+        if (this.audioContext.state === 'suspended') {
+          this.audioContext.resume();
+        }
 
-      this.audio.addEventListener('ended', () => resolve(), { once: true });
-      this.audio.addEventListener('error', () => resolve(), { once: true });
+        const buffer = this.audioBuffers.get(src)!;
+        const source = this.audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(this.audioContext.destination);
+        source.onended = () => resolve();
+        source.start(0);
+        this.currentSource = source;
+        return;
+      }
 
-      this.audio.play().catch(() => {
-        // If playback blocked, resolve immediately to allow navigation
+      // Fallback to HTMLAudioElement
+      if (this.fallbackAudio) {
+        this.fallbackAudio.pause();
+        this.fallbackAudio.currentTime = 0;
+      }
+
+      this.fallbackAudio = new Audio(src);
+      this.fallbackAudio.addEventListener('ended', () => resolve(), { once: true });
+      this.fallbackAudio.addEventListener('error', () => resolve(), { once: true });
+
+      this.fallbackAudio.play().catch(() => {
         resolve();
       });
     });
@@ -80,21 +185,7 @@ export class AudioService {
   }
 
   playCorrectAndWait(): Promise<void> {
-    return new Promise((resolve) => {
-      if (this.audio) {
-        this.audio.pause();
-        this.audio.currentTime = 0;
-      }
-
-      this.audio = new Audio(GAME_CONFIG.audio.correct);
-
-      this.audio.addEventListener('ended', () => resolve(), { once: true });
-      this.audio.addEventListener('error', () => resolve(), { once: true });
-
-      this.audio.play().catch(() => {
-        resolve();
-      });
-    });
+    return this.playAudioAndWait(GAME_CONFIG.audio.correct);
   }
 
   playIncorrect(): void {
@@ -106,9 +197,18 @@ export class AudioService {
   }
 
   stop(): void {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
+    if (this.currentSource) {
+      try {
+        this.currentSource.stop();
+      } catch {
+        // Ignore if already stopped
+      }
+      this.currentSource = null;
+    }
+
+    if (this.fallbackAudio) {
+      this.fallbackAudio.pause();
+      this.fallbackAudio.currentTime = 0;
     }
   }
 }

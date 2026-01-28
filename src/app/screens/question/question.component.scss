@@ -146,63 +146,119 @@
   }
 }
 
-// Question card
-.question-container {
-  background: linear-gradient(145deg, #ffffff, #f8f9fa);
-  border-radius: 24px;
-  padding: 28px 24px 24px;
+// Host and Speech Bubble
+.host-question-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   margin-bottom: 24px;
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   animation: card-appear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
+  gap: 0;
 }
 
-.question-icon {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(145deg, $primary-color, color.adjust($primary-color, $lightness: -10%));
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Russo One', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: white;
+.host-image {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  z-index: 2;
+  margin-left: -20px;
+  margin-top: -10px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.speech-bubble {
+  position: relative;
+  flex: 1;
+  z-index: 1;
+  margin-right: 20px;
+  // Drop shadow on the whole cloud shape
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+}
+
+.speech-bubble-content {
+  background: #ffffff;
+  padding: 20px 18px;
+  position: relative;
+  z-index: 1;
+
+  // Wavy cloud border using border-radius percentages
+  border-radius:
+    80px 85px 75px 80px /
+    60px 65px 55px 60px;
+
+  // Outline effect for comic style
+  border: 4px solid $primary-color;
+
+  // Inner bumps simulation with inset shadows
   box-shadow:
-    0 4px 15px rgba($primary-color, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  border: 3px solid white;
+    inset 0 0 0 2px rgba(255, 255, 255, 0.8),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.05);
+}
+
+// Comic tail - series of diminishing circles pointing to host
+.speech-bubble-tail {
+  position: absolute;
+  top: 45%;
+  right: -12px;
+  z-index: 3;
+
+  // Large circle (connects to bubble)
+  &::before {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #ffffff;
+    border: 4px solid $primary-color;
+    border-radius: 50%;
+    right: -8px;
+    top: -13px;
+  }
+
+  // Medium circle
+  &::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border: 3px solid $primary-color;
+    border-radius: 50%;
+    right: -28px;
+    top: 0px;
+  }
+}
+
+// Smallest circle in tail
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border: 3px solid $primary-color;
+  border-radius: 50%;
+  top: 48%;
+  right: -48px;
+  z-index: 3;
 }
 
 .question-text {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   color: $text-color;
   text-align: center;
-  line-height: 1.6;
-  margin: 20px 0 0;
+  line-height: 1.5;
+  margin: 0;
   font-weight: 700;
 }
 
-.question-decoration {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, $primary-color, $secondary-color, $primary-color);
-  background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
-}
 
 // Answers
 .answers-container {

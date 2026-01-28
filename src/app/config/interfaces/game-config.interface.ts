@@ -2,7 +2,6 @@ import { Question } from './question.interface';
 
 export interface AudioConfig {
   welcome: string;
-  question: string;
   reward: string;
   correct: string;
   incorrect: string;

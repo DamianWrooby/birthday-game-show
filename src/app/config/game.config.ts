@@ -29,7 +29,6 @@ export const GAME_CONFIG: GameConfig = {
   ],
   audio: {
     welcome: 'assets/audio/welcome.mp3',
-    question: 'assets/audio/question.mp3',
     reward: 'assets/audio/reward.mp3',
     correct: 'assets/audio/correct.mp3',
     incorrect: 'assets/audio/incorrect.mp3',

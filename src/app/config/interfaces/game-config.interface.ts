@@ -6,6 +6,7 @@ export interface AudioConfig {
   reward: string;
   correct: string;
   incorrect: string;
+  scratchComplete: string;
 }
 
 export interface ImageConfig {

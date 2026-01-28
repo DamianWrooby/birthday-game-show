@@ -101,6 +101,10 @@ export class AudioService {
     this.playAudio(GAME_CONFIG.audio.incorrect);
   }
 
+  playScratchComplete(): void {
+    this.playAudio(GAME_CONFIG.audio.scratchComplete);
+  }
+
   stop(): void {
     if (this.audio) {
       this.audio.pause();

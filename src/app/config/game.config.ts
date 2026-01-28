@@ -32,11 +32,12 @@ export const GAME_CONFIG: GameConfig = {
     question: 'assets/audio/question.mp3',
     reward: 'assets/audio/reward.mp3',
     correct: 'assets/audio/correct.mp3',
-    incorrect: 'assets/audio/incorrect.mp3'
+    incorrect: 'assets/audio/incorrect.mp3',
+    scratchComplete: 'assets/audio/scratch_complete.mp3'
   },
   images: {
     host: 'assets/images/host.png',
-    ticket: 'assets/images/ticket.svg',
+    ticket: 'assets/images/ticket.png',
     scratchOverlay: 'assets/images/scratch-overlay.png'
   },
   ui: {

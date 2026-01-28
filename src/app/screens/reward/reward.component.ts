@@ -41,6 +41,7 @@ export class RewardComponent implements OnInit {
   onFullyRevealed(): void {
     this.isRevealed = true;
     this.showConfetti = true;
+    this.audioService.playScratchComplete();
   }
 
   playAgain(): void {

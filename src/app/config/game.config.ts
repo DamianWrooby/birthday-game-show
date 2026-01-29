@@ -41,7 +41,7 @@ export const GAME_CONFIG: GameConfig = {
   },
   ui: {
     welcomeTitle: 'Urodzinowy Teleturniej!',
-    welcomeMessage: 'Odpowiedz na 3 pytania, aby odkryć swoją wyjątkową niespodziankę!',
+    welcomeMessage: 'Witaj Różo! Odpowiedz na 3 pytania, aby wygrać niesamowitą nagrodę!',
     playButtonText: 'GRAJ',
     rewardTitle: 'Gratulacje!',
     rewardMessage: 'Zdrap, aby odkryć niespodziankę!',

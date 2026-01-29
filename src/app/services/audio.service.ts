@@ -51,7 +51,6 @@ export class AudioService {
     // Preload all audio files
     const audioFiles = [
       GAME_CONFIG.audio.welcome,
-      GAME_CONFIG.audio.question,
       GAME_CONFIG.audio.reward,
       GAME_CONFIG.audio.correct,
       GAME_CONFIG.audio.incorrect,
@@ -172,8 +171,8 @@ export class AudioService {
     });
   }
 
-  playQuestion(audioPath?: string): void {
-    this.playAudio(audioPath ?? GAME_CONFIG.audio.question);
+  playQuestion(audioPath: string): void {
+    this.playAudio(audioPath);
   }
 
   playReward(): void {
